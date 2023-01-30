@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400;900&display=swap" rel="stylesheet">
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 </head>
-<body>
+<body class="bg-light">
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div>
         <a class="navbar-brand fs-1 fw-bold" href="#">Simpliblog</a>
@@ -37,69 +37,9 @@
     </div>
 </section>
 <section class="light-container" id="articles">
-    <h1>Articles</h1>
+    <h1>Trending Articles</h1>
     <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <div class="card">
-                    <img src="img/logo/logo.png" class="card-img-top" alt="img/logo/logo.png">
-                    <div class="card-body">
-                        <h5 class="card-title">Blog title 1</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <a href="#" class="btn btn-light">Read more</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4 ml-2">
-                <div class="card">
-                    <img src="img/logo/logo.png" class="card-img-top" alt="img/logo/logo.png">
-                    <div class="card-body">
-                        <h5 class="card-title">Blog title 2</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <a href="#" class="btn btn-light">Read more</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <div class="card">
-                    <img src="img/logo/logo.png" class="card-img-top" alt="img/logo/logo.png">
-                    <div class="card-body">
-                        <h5 class="card-title">Blog title 3</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <a href="#" class="btn btn-light">Read more</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <div class="card">
-                    <img src="img/logo/logo.png" class="card-img-top" alt="img/logo/logo.png">
-                    <div class="card-body">
-                        <h5 class="card-title">Blog title 4</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <a href="#" class="btn btn-light">Read more</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <div class="card">
-                    <img src="img/logo/logo.png" class="card-img-top" alt="img/logo/logo.png">
-                    <div class="card-body">
-                        <h5 class="card-title">Blog title 5</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <a href="#" class="btn btn-light" 5>Read more</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                <div class="card">
-                    <img src="img/logo/logo.png" class="card-img-top" alt="img/logo/logo.png">
-                    <div class="card-body">
-                        <h5 class="card-title">Blog title 5</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <a href="#" class="btn btn-light" 5>Read more</a>
-                    </div>
-                </div>
-            </div>
+        <div class="row" id="article-cards">
         </div>
     </div>
 </section>
@@ -125,24 +65,25 @@
                 <input type="text" class="form-control" placeholder="Enter your lastname here" id="lastNameInput">
             </div>
             <div class="mb-3">
-                <label for="blogBanner" class="form-label">Upload blog banner</label>
-                <input class="form-control" type="file" id="blogBanner">
+                <label for="blogBannerInput" class="form-label">Blog Banner URL</label>
+                <input class="form-control" type="text" placeholder="http(s)://example.com/exampleimage.jpg" id="blogBannerInput">
             </div>
-            <button type="submit" class="btn btn-dark">Submit</button>
+            <button type="submit" class="btn btn-dark" id="submit">Publish</button>
         </form>
     </div>
 </section>
 <section class="light-container" id="contact">
     <footer id="footer">
         <div class="container-fluid">
-            <i class="social-icon fab fa-facebook-f"></i>
-            <i class="social-icon fab fa-twitter"></i>
-            <i class="social-icon fab fa-instagram"></i>
-            <i class="social-icon fas fa-envelope"></i>
+            <a href="#"><i class="social-icon fab fa-facebook-f"></i></a>
+            <a href="#"><i class="social-icon fab fa-twitter"></i></a>
+            <a href="#"><i class="social-icon fab fa-instagram"></i></a>
+            <a href="#"><i class="social-icon fas fa-envelope"></i></a>
             <p>© Copyright 2023 Simpliblog</p>
         </div>
     </footer>
 </section>
 <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="formSubmit.js"></script>
 </body>
 </html>
