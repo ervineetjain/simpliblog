@@ -14,7 +14,6 @@ let loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed p
 
 /*
 *  Load five initial blog cards
-*
 * */
 
 
@@ -37,7 +36,7 @@ allBlogs.push({
     blogContent: loremIpsum,
     firstName: 'Marie',
     lastName: 'Clinton',
-    blogBanner: 'https://imageio.forbes.com/specials-images/imageserve/6371fa34f98b96a6d361196b/0x0.jpg?format=jpg&width=1200'
+    blogBanner: 'https://images.fastcompany.net/image/upload/w_1280,f_auto,q_auto,fl_lossy/wp-cms/uploads/2022/07/p-1-Meta-makes-another-big-move-to-distance-its-metaverse-from-Facebook.png'
 })
 allBlogs.push({
     title: `7 Ugly Truths A Pretty Website Can't Hide`,
@@ -54,8 +53,12 @@ allBlogs.push({
     blogBanner: 'https://images.squarespace-cdn.com/content/546aeb13e4b06c7939161700/1464629097710-MYG1117RHQ2SA5TNLQHO/?content-type=image%2Fjpeg'
 })
 
-
-allBlogs.forEach(blog => addBlogCard(blog))
+if (localStorage.getItem('allBlogs')) {
+    allBlogs = JSON.parse(localStorage.getItem('allBlogs'))
+} else {
+    localStorage.setItem("allBlogs", JSON.stringify(allBlogs))
+}
+allBlogs.forEach((blog, index) => addBlogCard(blog, index))
 
 document.getElementById("submit").addEventListener("click", function () {
     let title = document.getElementById("titleInput").value
@@ -74,26 +77,34 @@ document.getElementById("submit").addEventListener("click", function () {
 
     console.log(formData)
     allBlogs.push(formData)
-    addBlogCard(formData)
+    localStorage.setItem('allBlogs', JSON.stringify(allBlogs))
+    console.log("alllllll: ", JSON.stringify(allBlogs))
+    console.log("alllllll w/o string: ", allBlogs)
+    addBlogCard(formData, allBlogs.length - 1)
     document.getElementById("titleInput").value = ""
     document.getElementById("blogContent").value = ""
     document.getElementById("firstNameInput").value = ""
     document.getElementById("lastNameInput").value = ""
     document.getElementById("blogBannerInput").value = ""
-    console.log(JSON.stringify(allBlogs[allBlogs.length - 1]))
+    console.log(JSON.stringify(localStorage.getItem('allBlogs')))
     alert("Your blog was published successfully!")
-
-
 })
 
-function addBlogCard(blogData) {
-    let cardElement = `<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+let readArticleButtons = document.querySelectorAll('*[id*=blog-]')
+readArticleButtons.forEach(function (elem) {
+    elem.addEventListener("click", function () {
+        localStorage.setItem("index", this.id.split('-')[1])
+    });
+});
+
+function addBlogCard(blogData, index) {
+    let cardElement = `<div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
                 <div class="card">
                     <img src="${blogData.blogBanner}" class="card-img-top" alt="img/logo/logo.png">
                     <div class="card-body">
                         <h5 class="card-title">${blogData.title.slice(0, 60)}</h5>
                         <p class="card-text">${blogData.blogContent.slice(0, 150)}</p>
-                        <a href="#" class="btn btn-light">Read full article</a>
+                        <a href="articleDetail.html" class="btn btn-light" id='blog-${index}'>Read full article</a>
                     </div>
                 </div>
             </div>`

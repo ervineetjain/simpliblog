@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Simpliblog</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400;900&display=swap" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div>
+        <a class="navbar-brand fs-1 fw-bold" href="index.html">Simpliblog</a>
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navBarToggler"
+            aria-controls="navBarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navBarToggler">
+        <ul class="navbar-nav ms-auto">
+            <a class="nav-link fs-5" href="index.html#articles">Articles</a>
+            <a class="nav-link fs-5" href="index.html#write">Write</a>
+            <a class="nav-link fs-5" href="#contact">Contact</a>
+            <a class="nav-link fs-5 disabled" href="#">Sign In <span class="fs-6 text-danger">(coming soon)</span></a>
+        </ul>
+    </div>
+</nav>
+<section class="light-container" id="articleDetail">
+    <h1 id="blogTitle"></h1>
+    <p class="fs-4" id="blogAuthor"></p>
+    <img id="blogBannerImage" src="">
+    <div class="container-fluid">
+        <p id="blogContent"></p>
+    </div>
+</section>
+<section class="dark-container " id="contact">
+    <footer id="footer">
+        <div class="container-fluid">
+            <a href="#"><i class="social-icon fab fa-facebook-f"></i></a>
+            <a href="#"><i class="social-icon fab fa-twitter"></i></a>
+            <a href="#"><i class="social-icon fab fa-instagram"></i></a>
+            <a href="#"><i class="social-icon fas fa-envelope"></i></a>
+            <p>© Copyright 2023 Simpliblog</p>
+        </div>
+    </footer>
+</section>
+<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="articleDetail.js"></script>
+</body>
+</html>
