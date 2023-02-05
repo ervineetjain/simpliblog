@@ -11,102 +11,110 @@ let loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed p
     '\n' +
     'Vestibulum finibus ultrices ipsum, non bibendum dolor vehicula tempor. Fusce in consequat massa. Fusce faucibus orci sit amet nunc consectetur scelerisque et at massa. Nullam luctus elementum nisi. Nulla hendrerit nisi vel eros ultricies finibus. Fusce pharetra egestas augue vel viverra. Maecenas vestibulum mauris eget ligula ultrices viverra. Proin accumsan lacinia scelerisque. Donec tristique diam nibh, non vehicula massa faucibus non. Pellentesque non leo ullamcorper, mollis nibh quis, sodales urna. Donec vitae pretium turpis, pretium ultricies nisi. Maecenas egestas felis arcu, et porta nisi porttitor vitae. Donec lacinia magna id ante placerat, et tincidunt orci facilisis.'
 
+injectInitialBlogs();
 
-/*
-*  Load five initial blog cards
-* */
+let form = document.getElementById('submitBlog')
+let loremIpsumBtn = document.getElementById('auto-fill')
 
+form.addEventListener('submit', function (event) {
+    if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+    } else {
+        submitFormData();
+    }
+    form.classList.add('was-validated')
+}, false)
 
-allBlogs.push({
-    title: `A Day In A Software Developer's Life`,
-    blogContent: loremIpsum,
-    firstName: 'Vineet',
-    lastName: 'Jain',
-    blogBanner: 'https://res.cloudinary.com/highereducation/images/f_auto,q_auto/v1662131201/ComputerScience.org/CompSci_SE_How-to-become_38070e124/CompSci_SE_How-to-become_38070e124.jpg?_i=AA'
-})
-allBlogs.push({
-    title: `Blockchain - A Boon Or A Curse`,
-    blogContent: loremIpsum,
-    firstName: 'Ralph',
-    lastName: 'Nancy',
-    blogBanner: 'https://www.visiott.com/wp-content/uploads/2021/03/BlockChain_Banner-2.jpg'
-})
-allBlogs.push({
-    title: `Why You Should Forget Facebook`,
-    blogContent: loremIpsum,
-    firstName: 'Marie',
-    lastName: 'Clinton',
-    blogBanner: 'https://images.fastcompany.net/image/upload/w_1280,f_auto,q_auto,fl_lossy/wp-cms/uploads/2022/07/p-1-Meta-makes-another-big-move-to-distance-its-metaverse-from-Facebook.png'
-})
-allBlogs.push({
-    title: `7 Ugly Truths A Pretty Website Can't Hide`,
-    blogContent: loremIpsum,
-    firstName: 'Jaspal',
-    lastName: 'Singh',
-    blogBanner: 'https://www.techtalkthai.com/wp-content/uploads/2016/02/deep_dark_web.png'
-})
-allBlogs.push({
-    title: `Responsive vs. Adaptive Web Design, Which Is Best For You?`,
-    blogContent: loremIpsum,
-    firstName: 'Vincent',
-    lastName: 'Gregor',
-    blogBanner: 'https://images.squarespace-cdn.com/content/546aeb13e4b06c7939161700/1464629097710-MYG1117RHQ2SA5TNLQHO/?content-type=image%2Fjpeg'
+loremIpsumBtn.addEventListener('click', function(){
+    document.getElementById("blogContent").value = loremIpsum
 })
 
-if (localStorage.getItem('allBlogs')) {
-    allBlogs = JSON.parse(localStorage.getItem('allBlogs'))
-} else {
-    localStorage.setItem("allBlogs", JSON.stringify(allBlogs))
-}
-allBlogs.forEach((blog, index) => addBlogCard(blog, index))
-
-document.getElementById("submit").addEventListener("click", function () {
+function submitFormData() {
     let title = document.getElementById("titleInput").value
     let blogContent = document.getElementById("blogContent").value
-    let firstNameInput = document.getElementById("firstNameInput").value
-    let lastNameInput = document.getElementById("lastNameInput").value
+    let fullNameInput = document.getElementById("fullNameInput").value
     let blogBannerInput = document.getElementById("blogBannerInput").value
-    console.log(title, blogContent, firstNameInput, lastNameInput)
-    formData = {
+    let formData = {
         'title': title,
         'blogContent': blogContent,
-        'firstName': firstNameInput,
-        'lastName': lastNameInput,
-        'blogBanner': blogBannerInput
+        'fullName': fullNameInput,
+        'blogBanner': blogBannerInput ? blogBannerInput : `https://picsum.photos/id/${Math.floor(Math.random() * 1000)}/800/450`
     }
-
-    console.log(formData)
     allBlogs.push(formData)
-    localStorage.setItem('allBlogs', JSON.stringify(allBlogs))
-    console.log("alllllll: ", JSON.stringify(allBlogs))
-    console.log("alllllll w/o string: ", allBlogs)
+    setAllBlogsInLocalStorage();
     addBlogCard(formData, allBlogs.length - 1)
-    document.getElementById("titleInput").value = ""
-    document.getElementById("blogContent").value = ""
-    document.getElementById("firstNameInput").value = ""
-    document.getElementById("lastNameInput").value = ""
-    document.getElementById("blogBannerInput").value = ""
-    console.log(JSON.stringify(localStorage.getItem('allBlogs')))
+    clearForm()
     alert("Your blog was published successfully!")
-})
-
-let readArticleButtons = document.querySelectorAll('*[id*=blog-]')
-readArticleButtons.forEach(function (elem) {
-    elem.addEventListener("click", function () {
-        localStorage.setItem("index", this.id.split('-')[1])
-    });
-});
+}
 
 function addBlogCard(blogData, index) {
     let cardElement = `<div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">
                 <div class="card">
-                    <img src="${blogData.blogBanner}" class="card-img-top" alt="img/logo/logo.png">
+                    <img src="${blogData.blogBanner}" class="card-img-top" alt="blog banner image">
                     <div class="card-body">
                         <h5 class="card-title">${blogData.title.slice(0, 60)}</h5>
                         <p class="card-text">${blogData.blogContent.slice(0, 150)}</p>
-                        <a href="articleDetail.html" class="btn btn-light" id='blog-${index}'>Read full article</a>
+                        <a href='articleDetail.html?id=${index}' class="btn btn-light" id='blog-${index}'>Read full article</a>
                     </div>
                 </div>
             </div>`
     document.getElementById('article-cards').insertAdjacentHTML("afterbegin", cardElement)
+}
+
+function clearForm() {
+    document.getElementById("titleInput").value = ""
+    document.getElementById("blogContent").value = ""
+    document.getElementById("fullNameInput").value = ""
+    document.getElementById("blogBannerInput").value = ""
+}
+
+function setAllBlogsInLocalStorage() {
+    localStorage.setItem('allBlogs', JSON.stringify(allBlogs))
+}
+
+function renderBlogCards() {
+    allBlogs.forEach((blog, index) => {
+        addBlogCard(blog, index)
+    })
+}
+
+function injectInitialBlogs() {
+    allBlogs.push({
+        title: `A Day In A Software Developer's Life`,
+        blogContent: loremIpsum,
+        fullName: 'Vineet Jain',
+        blogBanner: 'https://res.cloudinary.com/highereducation/images/f_auto,q_auto/v1662131201/ComputerScience.org/CompSci_SE_How-to-become_38070e124/CompSci_SE_How-to-become_38070e124.jpg?_i=AA'
+    })
+    allBlogs.push({
+        title: `Blockchain - A Boon Or A Curse`,
+        blogContent: loremIpsum,
+        fullName: 'Ralph Lauren',
+        blogBanner: 'https://www.visiott.com/wp-content/uploads/2021/03/BlockChain_Banner-2.jpg'
+    })
+    allBlogs.push({
+        title: `Why You Should Forget Facebook`,
+        blogContent: loremIpsum,
+        fullName: 'Marie Curie',
+        blogBanner: 'https://images.fastcompany.net/image/upload/w_1280,f_auto,q_auto,fl_lossy/wp-cms/uploads/2022/07/p-1-Meta-makes-another-big-move-to-distance-its-metaverse-from-Facebook.png'
+    })
+    allBlogs.push({
+        title: `7 Ugly Truths A Pretty Website Can't Hide`,
+        blogContent: loremIpsum,
+        fullName: 'Jaspal Bhatti',
+        blogBanner: 'https://www.techtalkthai.com/wp-content/uploads/2016/02/deep_dark_web.png'
+    })
+    allBlogs.push({
+        title: `Responsive vs. Adaptive Web Design, Which Is Best For You?`,
+        blogContent: loremIpsum,
+        fullName: 'Vincent Gregor',
+        blogBanner: 'https://images.squarespace-cdn.com/content/546aeb13e4b06c7939161700/1464629097710-MYG1117RHQ2SA5TNLQHO/?content-type=image%2Fjpeg'
+    })
+
+    if (localStorage.getItem('allBlogs')) {
+        allBlogs = JSON.parse(localStorage.getItem('allBlogs'))
+    } else {
+        setAllBlogsInLocalStorage()
+    }
+    renderBlogCards();
 }

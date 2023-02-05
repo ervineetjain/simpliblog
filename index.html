@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400;900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/35c98bc070.js" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 </head>
 <body class="bg-light">
@@ -47,27 +48,34 @@
 <section class="dark-container" id="write">
     <h1>Submit a blog</h1>
     <div class="container ">
-        <form name="submitBlog">
+        <form id="submitBlog" class="needs-validation" action="#article-cards" novalidate>
             <div class="mb-3">
                 <label for="titleInput" class="form-label">Title</label>
-                <input type="text" class="form-control" placeholder="Enter blog title here" id="titleInput">
+                <input type="text" class="form-control" placeholder="Enter blog title" id="titleInput" required>
+            <div id="titleInputInvalidFeedback" class="invalid-feedback">
+                Please provide a blog title!
+            </div>
             </div>
             <div class="mb-3">
                 <label for="blogContent" class="form-label">Content</label>
                 <textarea class="form-control" placeholder="Type or paste your article here" id="blogContent"
-                          rows="6"></textarea>
+                          rows="6" required></textarea>
+                <a id="auto-fill"><i class="fa-solid fa-wand-magic-sparkles fa-lg"></i></a>
+            <div id="blogContentInvalidFeedback" class="invalid-feedback">
+                Blog content cannot be empty!
+            </div>
             </div>
             <div class="mb-3">
-                <label for="firstNameInput" class="form-label">Firstname</label>
-                <input type="text" class="form-control" placeholder="Enter your firstname here" id="firstNameInput">
+                <label for="fullNameInput" class="form-label">Fullname</label>
+                <input type="text" class="form-control" placeholder="Enter your name" id="fullNameInput" required>
+            <div id="fullNameInputInvalidFeedback" class="invalid-feedback">
+                Please enter your name!
             </div>
-            <div class="mb-3">
-                <label for="lastNameInput" class="form-label">Lastname</label>
-                <input type="text" class="form-control" placeholder="Enter your lastname here" id="lastNameInput">
             </div>
             <div class="mb-3">
                 <label for="blogBannerInput" class="form-label">Blog Banner URL</label>
-                <input class="form-control" type="text" placeholder="http(s)://example.com/exampleimage.jpg" id="blogBannerInput">
+                <input class="form-control" type="text" placeholder="https://example.com/exampleimage.jpg" id="blogBannerInput">
+                <div id="blogBannerInputHelp" class="form-text">If you leave this field blank a random image will be displayed as blog banner</div>
             </div>
             <button type="submit" class="btn btn-dark" id="submit">Publish</button>
         </form>
